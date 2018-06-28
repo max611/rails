@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
-gem "google-cloud-storage", "~> 1.11"
+begin
+  gem "google-cloud-storage", "~> 1.11"
+rescue LoadError
+  warn "Google cloud storage requires the google-cloud-storage gem, version 1.11 or later. Please add it to your Gemfile: `gem \"google-cloud-storage\", \"~> 1.11\"`"
+  raise
+end
 
 require "google/cloud/storage"
 require "net/http"

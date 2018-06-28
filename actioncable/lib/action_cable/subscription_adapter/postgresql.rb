@@ -1,7 +1,13 @@
 # frozen_string_literal: true
 
-gem "pg", ">= 0.18", "< 2.0"
-require "pg"
+begin
+  gem "pg", ">= 0.18", "< 2.0"
+  require "pg"
+rescue LoadError
+  warn "PostgreSQL requires the pg gem, version between 0.18 and 2.0. Please add it to your Gemfile: `gem \"pg\", \"~> 0.18\"`"
+  raise
+end
+
 require "thread"
 require "digest/sha1"
 

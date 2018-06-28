@@ -2,8 +2,13 @@
 
 require "thread"
 
-gem "redis", ">= 3", "< 5"
-require "redis"
+begin
+  gem "redis", ">= 3", "< 5"
+  require "redis"
+rescue LoadError
+  warn "Redis requires the redis gem, version between 3 and 5. Please add it to your Gemfile: `gem \"redis\", \"~> 3\"`"
+  raise
+end
 
 module ActionCable
   module SubscriptionAdapter

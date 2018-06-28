@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
-gem "capybara", ">= 2.15"
+begin
+  gem "capybara", ">= 2.15"
+rescue LoadError
+  warn "The system test case requires the capybara gem, version 2.15 or later. Please add it to your Gemfile: `gem \"capybara\", \"~> 2.15\"`"
+  raise
+end
 
 require "capybara/dsl"
 require "capybara/minitest"

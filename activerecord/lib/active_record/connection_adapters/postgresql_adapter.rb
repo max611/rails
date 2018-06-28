@@ -1,8 +1,13 @@
 # frozen_string_literal: true
 
 # Make sure we're using pg high enough for type casts and Ruby 2.2+ compatibility
-gem "pg", ">= 0.18", "< 2.0"
-require "pg"
+begin
+  gem "pg", ">= 0.18", "< 2.0"
+  require "pg"
+rescue LoadError
+  warn "The postgresql adapter requires the pg gem, version between 0.18 and 2.0. Please add it to your Gemfile: `gem \"pg\", \"~> 0.18\"`"
+  raise
+end
 
 require "active_record/connection_adapters/abstract_adapter"
 require "active_record/connection_adapters/statement_pool"

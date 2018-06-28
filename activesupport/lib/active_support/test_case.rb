@@ -1,7 +1,13 @@
 # frozen_string_literal: true
 
-gem "minitest" # make sure we get the gem, not stdlib
-require "minitest"
+begin
+  gem "minitest" # make sure we get the gem, not stdlib
+  require "minitest"
+rescue LoadError
+  warn "The test case requires the minitest gem. Please add it to your Gemfile: `gem \"minitest\"`"
+  raise
+end
+
 require "active_support/testing/tagged_logging"
 require "active_support/testing/setup_and_teardown"
 require "active_support/testing/assertions"

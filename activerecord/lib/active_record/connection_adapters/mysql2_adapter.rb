@@ -3,8 +3,13 @@
 require "active_record/connection_adapters/abstract_mysql_adapter"
 require "active_record/connection_adapters/mysql/database_statements"
 
-gem "mysql2", ">= 0.4.4", "< 0.6.0"
-require "mysql2"
+begin
+  gem "mysql2", ">= 0.4.4", "< 0.6.0"
+  require "mysql2"
+rescue LoadError
+  warn "The mysql2 adapter requires the mysql2 gem, version between 0.4.4 and 0.6.0. Please add it to your Gemfile: `gem \"mysql2\", \"~> 0.4.4\"`"
+  raise
+end
 
 module ActiveRecord
   module ConnectionHandling # :nodoc:

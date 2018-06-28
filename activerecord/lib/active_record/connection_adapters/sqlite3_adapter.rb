@@ -9,8 +9,13 @@ require "active_record/connection_adapters/sqlite3/schema_definitions"
 require "active_record/connection_adapters/sqlite3/schema_dumper"
 require "active_record/connection_adapters/sqlite3/schema_statements"
 
-gem "sqlite3", "~> 1.3.6"
-require "sqlite3"
+begin
+  gem "sqlite3", "~> 1.3.6"
+  require "sqlite3"
+rescue LoadError
+  warn "The sqlite3 adapter requires the sqlite3 gem, version 1.3.6 or later. Please add it to your Gemfile: `gem \"sqlite3\", \"~> 1.3.6\"`"
+  raise
+end
 
 module ActiveRecord
   module ConnectionHandling # :nodoc:
